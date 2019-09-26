@@ -15,7 +15,7 @@ describe('Trie test', () => {
     expect(trie.find('a')).toEqual(null);
   });
 
-  it('multiple Trie.insert() calls', () => {
+  it('Trie.insert() multiple calls', () => {
     const trie = new Trie();
     const testKeys = ['asdf', 'bde', 'asdfgh', 'as'];
     for (let i = 0; i < testKeys.length; i++) {
@@ -27,7 +27,7 @@ describe('Trie test', () => {
     }
   });
 
-  it('negative test Trie.insert() calls', () => {
+  it('Trie.insert() negative test', () => {
     const trie = new Trie();
     const testKeys = ['asdf', 'bde', 'asdfgh', 'as'];
     for (let i = 0; i < testKeys.length; i++) {
@@ -46,7 +46,10 @@ describe('Trie test', () => {
     for (let i = 0; i < testKeys.length; i++) {
       trie.insert(testKeys[i], testKeys[i]);
     }
-    const expectedMatch = ['asdf', 'asdfgh'];
-    expect(trie.match('asd')).toEqual(expectedMatch);
+    expect(trie.match('asd')).toEqual(['asdf', 'asdfgh']);
+    expect(trie.match('b')).toEqual(['bde']);
+    expect(trie.match('f')).toEqual([]);
+    expect(trie.match('asdfgha')).toEqual([]);
+    expect(trie.match('ad')).toEqual([]);
   });
 });
