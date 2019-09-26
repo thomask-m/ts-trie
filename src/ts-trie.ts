@@ -1,11 +1,6 @@
-// Import here Polyfills if needed. Recommended core-js (npm i -D core-js)
-  // import "core-js/fn/array.find"
-// ...
-import { get } from 'lodash';
-
 interface TrieNode {
   children: { [key: string]: TrieNode };
-  value: string;
+  value: string | null;
 }
 
 export default class Trie {
@@ -17,31 +12,52 @@ export default class Trie {
     };
   }
 
-  find(key: string) {
+  find(key: string): string | null {
+    const node = this.findNode(key);
+    return node && node.value;
+  }
+
+  findNode(key: string): TrieNode | null {
     let node = this.root;
     for (let i = 0; i < key.length; i++) {
-      const char = key[i];
-      if (get(node, `children.${char}`)) {
-        node = node.children[char];
-      } else {
-        return null;
-      }
+      const c = key[i];
+      node = node.children[c] || null;
     }
-    return node.value;
+    return node;
   }
 
   insert(key: string, value: string) {
     let node = this.root;
     for (let i = 0; i < key.length; i++) {
-      const char = key[i];
-      if (!get(node, `children.${char}`)) {
-        node.children[char] = {
+      const c = key[i];
+      if (!node.children[c]) {
+        node.children[c] = {
           children: {},
-          value: '',
+          value: null,
         };
       }
-      node = node.children[char];
+      node = node.children[c];
     }
     node.value = value;
+  }
+
+  match(key: string): string[] {
+    let matches: string[] = [];
+    let node = this.findNode(key);
+    let nextNodes: TrieNode[] = [];
+    while(node) {
+      Object.keys(node.children).forEach((c) => {
+        if (node && node.children[c]) {
+          nextNodes.push(node.children[c]);
+        }
+      });
+
+      if (node && node.value) {
+        matches.push(node.value);
+      }
+
+      node = nextNodes.pop() || null;
+    }
+    return matches;
   }
 };
