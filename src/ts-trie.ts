@@ -49,9 +49,9 @@ export default class Trie {
 
   match(key: string): string[] {
     let matches: string[] = []
+    let nextNodes: TrieNode[] = []
     let nodeOption = this.findNode(key)
     let node = toUndefined(nodeOption)
-    let nextNodes: TrieNode[] = []
 
     while (node) {
       Object.keys(node.children).forEach(c => {
