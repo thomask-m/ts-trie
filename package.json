@@ -1,6 +1,6 @@
 {
   "name": "ts-trie",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "keywords": [],
   "main": "dist/ts-trie.umd.js",
@@ -12,7 +12,7 @@
   "author": "thomask-m <kimthomas@gmail.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/thomask-m/ts-trie"
   },
   "license": "MIT",
   "engines": {
