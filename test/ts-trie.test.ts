@@ -16,6 +16,13 @@ describe('Trie test', () => {
     expect(toNullable(trie.find('a'))).toEqual(null)
   })
 
+  it('Trie.findNode() works as expected', () => {
+    const trie = new Trie()
+    trie.insert('asdf', 'Thomas')
+    expect(toNullable(trie.findNode('asdf'))).toBeInstanceOf(Trie)
+    expect(toNullable(trie.findNode('a'))).toEqual(null)
+  })
+
   it('Trie.insert() multiple calls', () => {
     const trie = new Trie()
     const testKeys = ['asdf', 'bde', 'asdfgh', 'as']
