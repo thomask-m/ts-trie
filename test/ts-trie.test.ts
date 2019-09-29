@@ -1,4 +1,4 @@
-import { toNullable } from 'fp-ts/lib/Option'
+import { toNullable, some } from 'fp-ts/lib/Option'
 import Trie from '../src/ts-trie'
 
 /**
@@ -14,13 +14,32 @@ describe('Trie test', () => {
     trie.insert('asdf', 'Thomas')
     expect(toNullable(trie.find('asdf'))).toEqual('Thomas')
     expect(toNullable(trie.find('a'))).toEqual(null)
+    expect(toNullable(trie.find('b'))).toEqual(null)
   })
 
   it('Trie.findNode() works as expected', () => {
     const trie = new Trie()
     trie.insert('asdf', 'Thomas')
-    expect(toNullable(trie.findNode('asdf'))).toBeInstanceOf(Trie)
-    expect(toNullable(trie.findNode('a'))).toEqual(null)
+    expect(toNullable(trie.findNode('asdf'))).toEqual({
+      value: some('Thomas'),
+      children: {}
+    })
+
+    const expectedTrieWhenKeyNotFound = {
+      children: {
+        s: {
+          children: {
+            d: {
+              children: { f: { children: {}, value: { _tag: 'Some', value: 'Thomas' } } },
+              value: { _tag: 'None' }
+            }
+          },
+          value: { _tag: 'None' }
+        }
+      },
+      value: { _tag: 'None' }
+    }
+    expect(toNullable(trie.findNode('a'))).toEqual(expectedTrieWhenKeyNotFound)
   })
 
   it('Trie.insert() multiple calls', () => {
@@ -59,5 +78,6 @@ describe('Trie test', () => {
     expect(trie.match('f')).toEqual([])
     expect(trie.match('asdfgha')).toEqual([])
     expect(trie.match('ad')).toEqual([])
+    expect(trie.match('hhh')).toEqual([])
   })
 })

@@ -60,12 +60,9 @@ export default class Trie {
         }
       })
 
-      if (node && isSome(node.value)) {
-        const value = pipe(
-          node.value,
-          getOrElse(() => '')
-        )
-        matches.push(value)
+      const match = toNullable(node.value)
+      if (match) {
+        matches.push(match)
       }
 
       node = nextNodes.pop()
