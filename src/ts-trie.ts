@@ -1,5 +1,4 @@
-import { Option, some, none, toNullable, toUndefined, isSome, getOrElse } from 'fp-ts/lib/Option'
-import { pipe } from 'fp-ts/lib/pipeable'
+import { Option, some, none, toNullable, toUndefined } from 'fp-ts/lib/Option'
 
 interface TrieNode {
   children: { [key: string]: TrieNode }
