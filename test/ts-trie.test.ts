@@ -1,5 +1,5 @@
+import { Trie } from '../src/ts-trie'
 import { toNullable, some } from 'fp-ts/lib/Option'
-import Trie from '../src/ts-trie'
 
 /**
  * Trie test
