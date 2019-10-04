@@ -6,11 +6,11 @@ import { toNullable, some } from 'fp-ts/lib/Option'
  */
 describe('Trie test', () => {
   it('Trie is instantiable', () => {
-    expect(new Trie()).toBeInstanceOf(Trie)
+    expect(new Trie<string>()).toBeInstanceOf(Trie)
   })
 
   it('Trie.find() works as expected', () => {
-    const trie = new Trie()
+    const trie = new Trie<string>()
     trie.insert('asdf', 'Thomas')
     expect(toNullable(trie.find('asdf'))).toEqual('Thomas')
     expect(toNullable(trie.find('a'))).toEqual(null)
@@ -18,7 +18,7 @@ describe('Trie test', () => {
   })
 
   it('Trie.findNode() works as expected', () => {
-    const trie = new Trie()
+    const trie = new Trie<string>()
     trie.insert('asdf', 'Thomas')
     expect(toNullable(trie.findNode('asdf'))).toEqual({
       value: some('Thomas'),
@@ -43,7 +43,7 @@ describe('Trie test', () => {
   })
 
   it('Trie.insert() multiple calls', () => {
-    const trie = new Trie()
+    const trie = new Trie<string>()
     const testKeys = ['asdf', 'bde', 'asdfgh', 'as']
     for (let i = 0; i < testKeys.length; i++) {
       trie.insert(testKeys[i], testKeys[i])
@@ -55,7 +55,7 @@ describe('Trie test', () => {
   })
 
   it('Trie.insert() negative test', () => {
-    const trie = new Trie()
+    const trie = new Trie<string>()
     const testKeys = ['asdf', 'bde', 'asdfgh', 'as']
     for (let i = 0; i < testKeys.length; i++) {
       trie.insert(testKeys[i], testKeys[i])
@@ -68,7 +68,7 @@ describe('Trie test', () => {
   })
 
   it('Trie.match() works as expected', () => {
-    const trie = new Trie()
+    const trie = new Trie<string>()
     const testKeys = ['asdf', 'bde', 'asdfgh', 'as']
     for (let i = 0; i < testKeys.length; i++) {
       trie.insert(testKeys[i], testKeys[i])
